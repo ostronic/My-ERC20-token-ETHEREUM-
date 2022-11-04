@@ -1,0 +1,25 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.0 <0.9.0;
+
+//Importing the open zeppelin ERC20 token standard
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+//Importing the open zeppelin contract ownable
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+//Creating my Token contract, which is inheriting from the ERC20 ownable
+contract Ostronics_Token is ERC20, Ownable {
+    constructor() ERC20("Ostronics_Token", "OSU") {
+        _mint(msg.sender, 314159 * 10 ** 18);
+    }
+    //Function to allow mint of coin from the owner
+    function mint(address to, uint256 amount) external onlyOwner {
+        _mint(to, amount);
+    }
+    
+    //The burn function to burn coins to allow more mintable
+    function burncoin(address,  uint256 amount) external onlyOwner{
+        _burn(msg.sender, amount);
+    }
+} 
